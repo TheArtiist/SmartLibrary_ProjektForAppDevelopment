@@ -18,6 +18,7 @@ namespace SmartLibrary.Library
         public LibraryRepository() { }
         public void Loader(string path)
         {
+            try { 
             using StreamReader reader = new StreamReader(path);
             var json = reader.ReadToEnd();
             var book = JsonSerializer.Deserialize<Books>(json);
@@ -26,7 +27,10 @@ namespace SmartLibrary.Library
                 throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
             }
             books.Add(book);
-
+            }catch(CorruptedFileReadingException e)
+            {
+                //ToDo
+            }
             
         }
 
