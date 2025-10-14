@@ -11,6 +11,5 @@ namespace SmartLibrary.Library
     {
         public void Loader(string path);
         public void Saver(string fileName);
-        //public void AddBook(Books book);
     }
 }

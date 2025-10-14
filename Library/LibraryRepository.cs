@@ -1,4 +1,5 @@
 ﻿using SmartLibrary.BookElements;
+using SmartLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace SmartLibrary.Library
             var book = JsonSerializer.Deserialize<Books>(json);
             if(book is null)
             {
-                throw new Exception("Hiba történt a beolvasás során");
+                throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
             }
             books.Add(book);
 
-            throw new NotImplementedException();
+            
         }
 
         public void Saver(string fileName)
