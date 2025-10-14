@@ -8,11 +8,22 @@ namespace SmartLibrary.BookElements
 {
     internal class Books
     {
-        public required string title { get; set; }
-        public required string author { get; set; }
-        public required int publicationYear { get; set; }
-        public required int? pages { get; set; }
-        public required int price { get; set; }
-        public required Genre genre { get; set; }
+
+        public string title { get; }
+        public string author { get; set; }
+        public int publicationYear { get; set; }
+        public int? pages { get; set; }
+        public int price { get; set; }
+        public Genre genre { get; set; }
+
+        public Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
+        {
+            this.title = title;
+            this.author = author;
+            this.publicationYear = publicationYear;
+            this.pages = pages;
+            this.price = price;
+            this.genre = genre;
+        }
     }
 }
