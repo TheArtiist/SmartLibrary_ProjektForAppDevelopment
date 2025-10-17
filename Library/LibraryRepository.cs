@@ -15,18 +15,21 @@ namespace SmartLibrary.Library
     {
         List<Books> books;
 
-        public LibraryRepository() { }
+        public LibraryRepository() 
+        {
+            books = new List<Books>();
+        }
         public void Loader(string path)
         {
             try { 
                 using StreamReader reader = new StreamReader(path);
                 var json = reader.ReadToEnd();
                 var book = JsonSerializer.Deserialize<Books>(json);
-            if(book is null)
-            {
-                throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
-            }
-            books.Add(book);
+                if(book is null)
+                {
+                    throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
+                }
+                books.Add(book);
             }catch(CorruptedFileReadingException CorruptedFile)
             {
                 Program.logger.addExcept(CorruptedFile);
