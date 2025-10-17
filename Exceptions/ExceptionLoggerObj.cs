@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace SmartLibrary.Exceptions
 {
     internal class ExceptionLoggerObj
     {
-        public Type type { get; set; }
-        public string message { get; set; }
+        List<Exception> exceptions;
 
-        public ExceptionLoggerObj(Exception e)
+        public ExceptionLoggerObj()
         {
-            this.type = e.GetType();
-            this.message = e.Message;
+            exceptions = new List<Exception>();
+        }
+
+        public void addExcept(Exception e)
+        {
+            this.exceptions.Add(e);
+        }
+
+        public void writeToFile()
+        {
+            string filename = "exceptions";
+            string jsonOutput = JsonSerializer.Serialize(exceptions);
+            File.WriteAllText(filename, jsonOutput);
         }
     }
 }

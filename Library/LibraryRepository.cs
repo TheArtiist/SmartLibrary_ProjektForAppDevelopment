@@ -19,15 +19,19 @@ namespace SmartLibrary.Library
         public void Loader(string path)
         {
             try { 
-            using StreamReader reader = new StreamReader(path);
-            var json = reader.ReadToEnd();
-            var book = JsonSerializer.Deserialize<Books>(json);
+                using StreamReader reader = new StreamReader(path);
+                var json = reader.ReadToEnd();
+                var book = JsonSerializer.Deserialize<Books>(json);
             if(book is null)
             {
                 throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
             }
             books.Add(book);
             }catch(CorruptedFileReadingException e)
+            {
+                //ToDo
+                Program.logger.addExcept(e);
+            }catch(Exception e)
             {
                 //ToDo
             }
