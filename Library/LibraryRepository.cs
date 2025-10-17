@@ -27,13 +27,12 @@ namespace SmartLibrary.Library
                 throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
             }
             books.Add(book);
-            }catch(CorruptedFileReadingException e)
+            }catch(CorruptedFileReadingException CorruptedFile)
             {
-                //ToDo
-                Program.logger.addExcept(e);
-            }catch(Exception e)
+                Program.logger.addExcept(CorruptedFile);
+            }catch(Exception exception)
             {
-                //ToDo
+                Program.logger.addExcept(exception);
             }
             
         }
