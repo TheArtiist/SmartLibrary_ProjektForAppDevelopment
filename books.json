@@ -1,0 +1,50 @@
+[
+  {
+    "title": "The Haunted Manor",
+    "author": "Eliza Blackwood",
+    "publicationYear": 1998,
+    "pages": 320,
+    "price": 2490,
+    "genre": "Horror"
+  },
+  {
+    "title": "Quantum Horizons",
+    "author": "Dr. Alan Pierce",
+    "publicationYear": 2021,
+    "pages": 410,
+    "price": 3990,
+    "genre": "SciFi"
+  },
+  {
+    "title": "The Silent Clue",
+    "author": "Mira Lang",
+    "publicationYear": 2005,
+    "pages": 280,
+    "price": 2190,
+    "genre": "Mystery"
+  },
+  {
+    "title": "Love in the Rain",
+    "author": "Sophie Bennett",
+    "publicationYear": 2012,
+    "pages": 350,
+    "price": 2890,
+    "genre": "Romance"
+  },
+  {
+    "title": "Dragons of Eldoria",
+    "author": "T. J. Wren",
+    "publicationYear": 2017,
+    "pages": 500,
+    "price": 4590,
+    "genre": "Fantasy"
+  },
+  {
+    "title": "The Code Chronicles",
+    "author": "Bence Szűcs",
+    "publicationYear": 2025,
+    "pages": null,
+    "price": 3490,
+    "genre": "IT"
+  }
+]

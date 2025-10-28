@@ -28,7 +28,12 @@ namespace SmartLibrary.Library
                 if (!File.Exists(path)) throw new CorruptedFileReadingException("Nem található a fájl");
 
                 string json = File.ReadAllText(path);
-                var loadedBooks = JsonSerializer.Deserialize<Books>(json);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+                };      
+                var loadedBooks = JsonSerializer.Deserialize<List<Books>>(json, options);
                 
                 if(loadedBooks is null)
                 {
@@ -43,6 +48,7 @@ namespace SmartLibrary.Library
             }catch(Exception exception)
             {
                 Program.logger.addExcept(exception);
+                Console.WriteLine(exception.ToString());
             }
             
         }

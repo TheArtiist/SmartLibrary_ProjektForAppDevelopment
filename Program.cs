@@ -10,14 +10,14 @@ namespace SmartLibrary
         {
             var repo = new LibraryRepository();
 
-            repo.Loader("books.json");
+            repo.Loader($"C:\\Users\\TheArtist\\Desktop\\Programing\\VisualStudio\\SmartLibrary\\books.json");
 
             foreach (var book in repo.GetAllBooks())
             {
-                Console.WriteLine($"{book.title} - {book.author} - {book.publicationYear} - {book.genre}");
+                Console.WriteLine($"{book.title} - {book.author} - {book.pages} - {book.genre}");
             }
 
-            logger.writeToFile();
+            //logger.writeToFile();
         }
     }
 }
