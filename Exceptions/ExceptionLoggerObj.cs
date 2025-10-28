@@ -23,8 +23,14 @@ namespace SmartLibrary.Exceptions
 
         public void writeToFile()
         {
-            string filename = "exceptions";
-            string jsonOutput = JsonSerializer.Serialize(exceptions);
+            if(exceptions.Count == 0) return;
+            
+            string filename = $"Exceptions_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            string jsonOutput = JsonSerializer.Serialize(exceptions,new JsonSerializerOptions 
+            { 
+                WriteIndented = true 
+            });
+
             File.WriteAllText(filename, jsonOutput);
         }
     }
