@@ -1,4 +1,5 @@
 ﻿using SmartLibrary.Exceptions;
+using SmartLibrary.Library;
 
 namespace SmartLibrary
 {
@@ -7,7 +8,14 @@ namespace SmartLibrary
         public static ExceptionLoggerObj logger = new ExceptionLoggerObj();
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var repo = new LibraryRepository();
+
+            repo.Loader("books.json");
+
+            foreach (var book in repo.GetAllBooks())
+            {
+                Console.WriteLine($"{book.title} - {book.author} - {book.publicationYear} - {book.genre}");
+            }
 
             logger.writeToFile();
         }
