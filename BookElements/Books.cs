@@ -16,7 +16,7 @@ namespace SmartLibrary.BookElements
         public int price { get; set; }
         public Genre genre { get; set; }
 
-        public Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
+        internal Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
         {
             this.title = title;
             this.author = author;
