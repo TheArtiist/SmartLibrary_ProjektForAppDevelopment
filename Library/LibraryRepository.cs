@@ -19,20 +19,27 @@ namespace SmartLibrary.Library
         {
             books = new List<Books>();
         }
+
+        public List<Books> GetAllBooks() => books;
+        
         public void Loader(string path)
         {
-            try { 
-                using StreamReader reader = new StreamReader(path);
-                var json = reader.ReadToEnd();
-                var book = JsonSerializer.Deserialize<Books>(json);
-                if(book is null)
+            try {
+                if (!File.Exists(path)) throw new CorruptedFileReadingException("Nem található a fájl");
+
+                string json = File.ReadAllText(path);
+                var loadedBooks = JsonSerializer.Deserialize<Books>(json);
+                
+                if(loadedBooks is null)
                 {
                     throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
                 }
-                books.Add(book);
+                books.AddRange((IEnumerable<Books>)loadedBooks);
+
             }catch(CorruptedFileReadingException CorruptedFile)
             {
                 Program.logger.addExcept(CorruptedFile);
+
             }catch(Exception exception)
             {
                 Program.logger.addExcept(exception);
@@ -40,9 +47,16 @@ namespace SmartLibrary.Library
             
         }
 
-        public void Saver(string fileName)
+        public void Saver(string path)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string json = JsonSerializer.Serialize(books, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(path,json);
+            }catch(Exception e)
+            {
+                Program.logger.addExcept(e);
+            }
         }
     }
 }
