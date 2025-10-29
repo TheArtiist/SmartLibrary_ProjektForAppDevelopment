@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.BookElements
 {
-    internal class Books
+    internal record Books
     {
 
-        public string title { get; set; }
-        public string author { get; set; }
-        public int publicationYear { get; set; }
-        public int? pages { get; set; }
-        public int price { get; set; }
-        public Genre genre { get; set; }
+        public string title { get; }
+        public string author { get; }
+        public int publicationYear { get; }
+        public int? pages { get; }
+        public int price { get; }
+        public Genre genre { get; }
 
         [JsonConstructor]
         public Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
@@ -27,6 +27,6 @@ namespace SmartLibrary.BookElements
             this.price = price;
             this.genre = genre;
         }
-        public Books() {}
+        
     }
 }
