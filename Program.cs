@@ -5,7 +5,7 @@ namespace SmartLibrary
 {
     internal class Program
     {  
-        public static ExceptionLoggerObj logger = new ExceptionLoggerObj();
+        public static IExceptionLoggerObj logger = new ExceptionLoggerObj();
         static void Main(string[] args)
         {
             var repo = new LibraryRepository();
@@ -17,9 +17,12 @@ namespace SmartLibrary
             Console.WriteLine("Select an action:");
             do
             {
-                
-                action = Convert.ToInt32(Console.ReadLine() ?? string.Empty);
-                
+                try {
+                    action = Convert.ToInt32(Console.ReadLine() ?? string.Empty);
+                }catch(FormatException fm)
+                {
+                    logger.addExcept(fm); 
+                }
                 switch (action)
                 {
                     case 1:
@@ -39,7 +42,7 @@ namespace SmartLibrary
 
             } while (action == -1);
 
-            //logger.writeToFile();
+            logger.writeToFile();
         }
     }
 }
