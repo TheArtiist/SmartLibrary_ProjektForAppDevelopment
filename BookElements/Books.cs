@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.BookElements
 {
-    internal record Books
+    public record Books
     {
 
         public string title { get; }

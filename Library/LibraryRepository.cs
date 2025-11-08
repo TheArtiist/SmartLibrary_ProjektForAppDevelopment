@@ -21,10 +21,11 @@ namespace SmartLibrary.Library
         }
 
         public List<Books> GetAllBooks() => books;
-        
+
         public void Loader(string path)
         {
-            try {
+            try
+            {
                 if (!File.Exists(path)) throw new CorruptedFileReadingException("Nem található a fájl");
 
                 string json = File.ReadAllText(path);
@@ -32,25 +33,28 @@ namespace SmartLibrary.Library
                 {
                     PropertyNameCaseInsensitive = true,
                     Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-                };      
+                };
                 var loadedBooks = JsonSerializer.Deserialize<List<Books>>(json, options);
-                
-                if(loadedBooks is null)
+
+                if (loadedBooks is null)
                 {
                     throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
                 }
                 books.AddRange((IEnumerable<Books>)loadedBooks);
 
-            }catch(CorruptedFileReadingException CorruptedFile)
+            }
+            catch (CorruptedFileReadingException CorruptedFile)
             {
                 Program.logger.addExcept(CorruptedFile);
 
-            }catch(Exception exception)
+            }
+            catch (Exception exception)
             {
                 Program.logger.addExcept(exception);
                 Console.WriteLine(exception.ToString());
+
+
             }
-            
         }
 
         public void Saver(string path)

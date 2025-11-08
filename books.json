@@ -46,5 +46,45 @@
     "pages": null,
     "price": 3490,
     "genre": "IT"
+  },
+  {
+    "title": "Echoes of the Past",
+    "author": "Harold Finch",
+    "publicationYear": 1995,
+    "pages": 370,
+    "price": 2390,
+    "genre": "History"
+  },
+  {
+    "title": "Mind Over Matter",
+    "author": "Dr. Lena Voss",
+    "publicationYear": 2019,
+    "pages": 310,
+    "price": 3190,
+    "genre": "Other"
+  },
+  {
+    "title": "Beneath the Ice",
+    "author": "Kara Jensen",
+    "publicationYear": 2010,
+    "pages": 290,
+    "price": 2690,
+    "genre": "Other"
+  },
+  {
+    "title": "The Artisan's Way",
+    "author": "Lucien Moreau",
+    "publicationYear": 2003,
+    "pages": 240,
+    "price": 1990,
+    "genre": "Other"
+  },
+  {
+    "title": "Neon Skies",
+    "author": "Rico Tanaka",
+    "publicationYear": 2024,
+    "pages": 360,
+    "price": 3790,
+    "genre": "Other"
   }
 ]
