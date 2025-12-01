@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SmartLibrary.BookElements
 {
-    internal class Books
+    public record Books
     {
 
         public string title { get; }
-        public string author { get; set; }
-        public int publicationYear { get; set; }
-        public int? pages { get; set; }
-        public int price { get; set; }
-        public Genre genre { get; set; }
+        public string author { get; }
+        public int publicationYear { get; }
+        public int? pages { get; }
+        public int price { get; }
+        public Genre genre { get; }
 
-        internal Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
+        [JsonConstructor]
+        public Books(string title, string author, int publicationYear, int? pages, int price, Genre genre)
         {
             this.title = title;
             this.author = author;
@@ -25,5 +27,6 @@ namespace SmartLibrary.BookElements
             this.price = price;
             this.genre = genre;
         }
+        
     }
 }

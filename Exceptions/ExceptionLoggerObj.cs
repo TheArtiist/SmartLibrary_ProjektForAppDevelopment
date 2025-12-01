@@ -7,31 +7,32 @@ using System.Text.Json;
 
 namespace SmartLibrary.Exceptions
 {
-    internal class ExceptionLoggerObj
+    internal class ExceptionLoggerObj: IExceptionLoggerObj
     {
-        List<Exception> exceptions;
+        List<SerializableException> exceptions;
 
         public ExceptionLoggerObj()
         {
-            exceptions = new List<Exception>();
+            exceptions = new List<SerializableException>();
         }
 
         public void addExcept(Exception e)
         {
-            this.exceptions.Add(e);
+            SerializableException ex = new SerializableException(e);
+            this.exceptions.Add(ex);
         }
 
         public void writeToFile()
         {
             if(exceptions.Count == 0) return;
             
-            string filename = $"Exceptions_{DateTime.Now:yyyyMMdd_HHmmss}.json";
+            string filename = $"Exceptions_{DateTime.Now:yyyy_MM_dd;HH.mm.ss}.json";
             string jsonOutput = JsonSerializer.Serialize(exceptions,new JsonSerializerOptions 
             { 
                 WriteIndented = true 
             });
 
-            File.WriteAllText(filename, jsonOutput);
+            File.WriteAllTextAsync(filename, jsonOutput);
         }
     }
 }
