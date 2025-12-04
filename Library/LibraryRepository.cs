@@ -14,6 +14,7 @@ namespace SmartLibrary.Library
     internal class LibraryRepository : ILibraryRepository
     {
         List<Books> books;
+        private IBookReaderFromJson bookReader;
 
         public LibraryRepository() 
         {
@@ -24,37 +25,8 @@ namespace SmartLibrary.Library
 
         public void Loader(string path)
         {
-            try
-            {
-                if (!File.Exists(path)) throw new CorruptedFileReadingException("Nem található a fájl");
-
-                string json = File.ReadAllText(path);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                    Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-                };
-                var loadedBooks = JsonSerializer.Deserialize<List<Books>>(json, options);
-
-                if (loadedBooks is null)
-                {
-                    throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
-                }
-                books.AddRange((IEnumerable<Books>)loadedBooks);
-
-            }
-            catch (CorruptedFileReadingException CorruptedFile)
-            {
-                Program.logger.addExcept(CorruptedFile);
-
-            }
-            catch (Exception exception)
-            {
-                Program.logger.addExcept(exception);
-                Console.WriteLine(exception.ToString());
-
-
-            }
+            this.bookReader = new BookReaderFromJson(path);
+            this.bookReader.readBooksFromJson();
         }
 
         public void Saver(string path)
