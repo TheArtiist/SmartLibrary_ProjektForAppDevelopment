@@ -21,12 +21,14 @@ namespace SmartLibrary.Controller
         {
             switch (action)
             {
+                //Összes repo-ban lévő könyv listázása
                 case 1:
                     foreach (var book in _books)
                     {
                         Console.WriteLine($"{book.title} - {book.author} - {book.pages} - {book.genre}");
                     }
                     break;
+                //IT könyvek listázása oldalszám szerint növekvő sorrendben
                 case 2:
                     var filtered = _books.Where(b => b.genre == Genre.IT)
                                          .OrderBy(y => y.publicationYear);
@@ -35,6 +37,7 @@ namespace SmartLibrary.Controller
                         Console.WriteLine($"{book.title} - {book.author} - {book.pages} - {book.genre}");
                     }
                     break;
+                //Könyvek listázása kiadás éve szerint növekvő sorrendben
                 case 3:
                     var sorted = _books.OrderBy(b => b.publicationYear);
                     foreach (var book in sorted)

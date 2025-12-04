@@ -1,4 +1,5 @@
-﻿using SmartLibrary.Controller;
+﻿using SmartLibrary.BookElements;
+using SmartLibrary.Controller;
 using SmartLibrary.Exceptions;
 using SmartLibrary.Library;
 
@@ -9,7 +10,7 @@ namespace SmartLibrary
         public static IExceptionLoggerObj logger = new ExceptionLoggerObj();
         static void Main(string[] args)
         {
-            var repo = new LibraryRepository();
+            var repo = new LibraryRepository<Books>();
 
             repo.Loader($"C:\\Users\\TheArtist\\Desktop\\Programing\\VisualStudio\\SmartLibrary\\books.json");
 

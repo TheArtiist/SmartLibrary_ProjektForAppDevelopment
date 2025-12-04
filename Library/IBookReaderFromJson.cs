@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.Library
 {
-    public interface ILibraryRepository<T> where T : class
+    public interface IBookReaderFromJson
     {
-        public void Loader(string path);
-        public void Saver(string fileName);
+        public List<Books> readBooksFromJson();
     }
 }

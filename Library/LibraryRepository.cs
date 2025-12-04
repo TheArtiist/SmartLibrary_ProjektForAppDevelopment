@@ -11,62 +11,29 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.Library
 {
-    internal class LibraryRepository : ILibraryRepository
+    internal class LibraryRepository<T> : ILibraryRepository<T> where T : class
     {
-        List<Books> books;
+        List<T> books;
+        private IBookReaderFromJson? bookReader;
+        private IBookWriterToJson? bookWriter;
 
         public LibraryRepository() 
         {
-            books = new List<Books>();
+            books = new List<T>();
         }
 
-        public List<Books> GetAllBooks() => books;
+        public List<T> GetAllBooks() => books;
 
         public void Loader(string path)
         {
-            try
-            {
-                if (!File.Exists(path)) throw new CorruptedFileReadingException("Nem található a fájl");
-
-                string json = File.ReadAllText(path);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                    Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-                };
-                var loadedBooks = JsonSerializer.Deserialize<List<Books>>(json, options);
-
-                if (loadedBooks is null)
-                {
-                    throw new CorruptedFileReadingException("Hiba történt a beolvasás során");
-                }
-                books.AddRange((IEnumerable<Books>)loadedBooks);
-
-            }
-            catch (CorruptedFileReadingException CorruptedFile)
-            {
-                Program.logger.addExcept(CorruptedFile);
-
-            }
-            catch (Exception exception)
-            {
-                Program.logger.addExcept(exception);
-                Console.WriteLine(exception.ToString());
-
-
-            }
+            this.bookReader = new BookReaderFromJson(path);
+            this.bookReader.readBooksFromJson();
         }
 
         public void Saver(string path)
         {
-            try
-            {
-                string json = JsonSerializer.Serialize(books, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(path,json);
-            }catch(Exception e)
-            {
-                Program.logger.addExcept(e);
-            }
+            this.bookWriter = new BookWriterToJson(path);
+            this.bookWriter.writeBooksToJson<T>(books);
         }
     }
 }
