@@ -11,17 +11,18 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.Library
 {
-    internal class LibraryRepository : ILibraryRepository
+    internal class LibraryRepository<T> : ILibraryRepository<T> where T : class
     {
-        List<Books> books;
-        private IBookReaderFromJson bookReader;
+        List<T> books;
+        private IBookReaderFromJson? bookReader;
+        private IBookWriterToJson? bookWriter;
 
         public LibraryRepository() 
         {
-            books = new List<Books>();
+            books = new List<T>();
         }
 
-        public List<Books> GetAllBooks() => books;
+        public List<T> GetAllBooks() => books;
 
         public void Loader(string path)
         {
@@ -31,14 +32,8 @@ namespace SmartLibrary.Library
 
         public void Saver(string path)
         {
-            try
-            {
-                string json = JsonSerializer.Serialize(books, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(path,json);
-            }catch(Exception e)
-            {
-                Program.logger.addExcept(e);
-            }
+            this.bookWriter = new BookWriterToJson(path);
+            this.bookWriter.writeBooksToJson<T>(books);
         }
     }
 }

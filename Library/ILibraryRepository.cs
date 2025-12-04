@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartLibrary.Library
 {
-    public interface ILibraryRepository
+    public interface ILibraryRepository<T> where T : class
     {
         public void Loader(string path);
         public void Saver(string fileName);
